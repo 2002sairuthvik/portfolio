@@ -1,0 +1,13 @@
+# Local tooling / editor
+.claude/
+
+# Local-only design scratch copy (not part of the deployed site)
+preview.html
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Vercel
+.vercel/
