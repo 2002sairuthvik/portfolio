@@ -134,6 +134,7 @@ h1{
   transition:all .2s;
 }
 .contact-links a:hover{ border-color:var(--accent); color:var(--accent); }
+.contact-links .ic{ width:17px; height:17px; flex:none; }
 
 footer{ padding:32px 0; }
 .footer-row{ display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; font-size:12.5px; color:var(--faint); max-width:var(--max); margin:0 auto; padding:0 28px; }
