@@ -2,17 +2,16 @@
 // returns markup (JSX). For now it renders a placeholder so we can confirm
 // the whole React + Vite pipeline works before building the real site.
 function App() {
-  // Every className below is a Tailwind "utility" — one class = one CSS rule.
-  // text-3xl = font-size:1.875rem, font-bold = font-weight:700,
-  // text-emerald-700 = a green color, mt-2 = margin-top:0.5rem, etc.
+  // Now using OUR palette tokens: text-ink, text-muted, text-faint, text-accent
+  // (from @theme in index.css), plus the container width from the old design.
   return (
-    <main className="m-8 font-sans">
-      <h1 className="text-3xl font-bold text-emerald-700">
-        React + Tailwind is running 🎉
-      </h1>
-      <p className="mt-2 text-gray-500">
-        Styled with utility classes — notice there is no separate CSS file.
+    <main className="mx-auto max-w-[760px] px-7 py-20">
+      <p className="text-sm uppercase tracking-widest text-faint">Rebuild in progress</p>
+      <h1 className="mt-4 text-4xl font-semibold text-ink">The theme is in place.</h1>
+      <p className="mt-3 text-muted">
+        Warm background, Instrument Sans, and the green accent — all from our tokens.
       </p>
+      <a className="mt-4 inline-block text-accent" href="#">An accent-colored link →</a>
     </main>
   )
 }
