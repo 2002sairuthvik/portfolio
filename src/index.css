@@ -1,2 +1,4 @@
-/* Global styles. Empty for now — we'll wire up Tailwind and the theme in the
-   next step. Keeping it minimal so this step is only about the render pipeline. */
+/* This one line pulls in all of Tailwind. During the build, Tailwind scans our
+   components for utility classes (like text-3xl, mt-2) and generates only the
+   CSS actually used. Our custom theme/palette will be added here in the next step. */
+@import "tailwindcss";
