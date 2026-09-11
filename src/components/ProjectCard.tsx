@@ -1,16 +1,15 @@
 import Tag from './Tag'
+import ProjectDiagram from './ProjectDiagram'
 import type { Project } from '../data/projects'
 
-// One card, driven entirely by props (a Project). Two ideas to notice:
-//  1. NESTED .map(): tags.map(...) runs INSIDE this component, which is itself
-//     rendered by a .map() on the Projects page.
-//  2. OPTIONAL fields: `detail && (...)` and `liveUrl && (...)` — we only render
-//     those pieces when the optional prop is actually present.
 export default function ProjectCard({
   tag,
   title,
   description,
   detail,
+  evalTable,
+  researchNote,
+  diagram,
   tags,
   liveUrl,
   codeUrl,
@@ -24,18 +23,57 @@ export default function ProjectCard({
       <div className="text-[21px] font-semibold tracking-tight text-ink">{title}</div>
       <p className="mt-2.5 max-w-[560px] text-[14.5px] text-muted">{description}</p>
 
-      {detail && (
-        <p className="mt-3.5 max-w-[560px] text-[14.5px] leading-[1.7] text-muted">{detail}</p>
+      {/* detail is now an array of paragraphs — one <p> per item. */}
+      {detail?.map((para, i) => (
+        <p key={i} className="mt-3.5 max-w-[560px] text-[14.5px] leading-[1.7] text-muted">
+          {para}
+        </p>
+      ))}
+
+      {/* Data-driven table: map headers, then map rows, then map each row's cells. */}
+      {evalTable && (
+        <table className="mt-[18px] w-full border-collapse text-[13px]">
+          <thead>
+            <tr>
+              {evalTable.headers.map((h, i) => (
+                <th
+                  key={h}
+                  className={`border-b border-line py-2 pr-3 text-left text-[12px] font-medium uppercase tracking-[0.04em] ${i === 0 ? 'text-ink' : 'text-faint'}`}
+                >
+                  {h}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {evalTable.rows.map((row) => (
+              <tr key={row.cells[0]}>
+                {row.cells.map((cell, i) => (
+                  <td
+                    key={i}
+                    className={`border-b border-line py-2 pr-3 ${
+                      i === 0 || row.best ? 'font-semibold text-ink' : 'text-muted'
+                    }`}
+                  >
+                    {cell}
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
       )}
 
-      {/* Nested map: each tag string -> a <Tag> pill. */}
+      {researchNote && <div className="mt-6 text-[13px] text-faint">{researchNote}</div>}
+
+      {diagram && <ProjectDiagram kind={diagram} />}
+
       <div className="mt-4 flex flex-wrap gap-2">
         {tags.map((t) => (
           <Tag key={t} label={t} />
         ))}
       </div>
 
-      {/* External links are plain <a target="_blank"> — NOT router links. */}
       {(liveUrl || codeUrl) && (
         <div className="mt-[18px] flex flex-wrap gap-2.5">
           {liveUrl && (
