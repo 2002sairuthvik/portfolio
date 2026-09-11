@@ -1,38 +1,42 @@
 # Sai Ruthvik Munugoti — Portfolio
 
-Personal portfolio site for **Sai Ruthvik Munugoti**, AI/ML Engineer
+Personal portfolio for **Sai Ruthvik Munugoti**, AI/ML Engineer
 (M.S. Computer Science, Texas Tech University).
 
 **Live:** https://sairuthvik.vercel.app
 
-## Overview
+## Stack
 
-A lightweight, static multi-page site — no framework and no build step. Every
-page shares a single stylesheet and the [Instrument Sans](https://fonts.google.com/specimen/Instrument+Sans)
-typeface, on a warm off-white theme with a muted green accent.
+A single-page app built with **React + TypeScript + Vite**, styled with
+**Tailwind CSS**, routed with **React Router**. It began as a static multi-page
+HTML site and was rebuilt component-by-component (the git history walks through
+each step). Deployed on **Vercel** as a static build.
 
 ## Structure
 
-| File | Page |
-| --- | --- |
-| `index.html` | Home — hero and a numbered index of the site |
-| `experience.html` | Research and internship timeline |
-| `projects.html` | Shipped systems and research (incl. an inline SVG architecture diagram) |
-| `skills.html` | Skills groups and education |
-| `contact.html` | Get in touch — Email / LinkedIn / GitHub |
-| `style.css` | Shared stylesheet (design tokens as CSS variables) |
-
-## Local preview
-
-No dependencies. Serve the folder with any static server, e.g.:
-
-```bash
-python -m http.server 4321
+```
+index.html            Vite entry (mounts React into #root)
+vite.config.ts        Vite + React + Tailwind plugins
+vercel.json           SPA rewrite so client-side routes deep-link correctly
+src/
+  main.tsx            BrowserRouter + renders <App/>
+  App.tsx             the route table (path -> page)
+  index.css           Tailwind import + design tokens (@theme) + base styles
+  components/         Header, Footer, Layout, Entry, ProjectCard, Tag, ...
+  pages/              Home, Experience, Projects, Skills, Contact
+  data/               typed data arrays the pages map over
 ```
 
-Then open http://localhost:4321.
+## Develop
 
-## Deployment
+```bash
+npm install
+npm run dev      # start the dev server (http://localhost:5173)
+```
 
-Hosted on [Vercel](https://vercel.com) as static files (no build command).
-The commit history walks through how the site came together, step by step.
+## Build
+
+```bash
+npm run build    # type-check + bundle to dist/ (the static site Vercel serves)
+npm run preview  # preview the production build locally
+```

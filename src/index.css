@@ -1,0 +1,37 @@
+@import "tailwindcss";
+
+/* Our design tokens. These are the SAME colors your old style.css defined as
+   CSS variables (:root { --accent:#3E5941 } ...). Here we register them with
+   Tailwind via @theme, which turns each into utility classes automatically:
+   --color-bg -> bg-bg,  --color-ink -> text-ink,  --color-accent -> text-accent,
+   --color-line -> border-line, and so on. Same palette, now powering utilities. */
+@theme {
+  --color-bg: #faf8f3;
+  --color-panel: #f3f0e8;
+  --color-ink: #1b1a17;
+  --color-muted: #726e64;
+  --color-faint: #a7a296;
+  --color-line: rgb(27 26 23 / 0.13);
+  --color-accent: #3e5941;
+
+  --font-sans: "Instrument Sans", ui-sans-serif, system-ui, sans-serif;
+}
+
+/* Base page styles — the equivalent of the old body/html rules in style.css. */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    background-color: var(--color-bg);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-size: 17px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+  ::selection {
+    background: var(--color-accent);
+    color: #fff;
+  }
+}
