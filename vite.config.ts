@@ -13,5 +13,13 @@ export default defineConfig({
     alias: {
       '@': path.resolve(import.meta.dirname, './src'),
     },
+    // Force a single copy of React so Radix/cmdk (used by shadcn) don't end up
+    // with their own instance — fixes "Invalid hook call / multiple copies".
+    dedupe: ['react', 'react-dom'],
+  },
+  // Pre-bundle React consistently so dependencies (Radix/cmdk) share the same
+  // instance during dev.
+  optimizeDeps: {
+    include: ['react', 'react-dom', 'react/jsx-runtime'],
   },
 })
