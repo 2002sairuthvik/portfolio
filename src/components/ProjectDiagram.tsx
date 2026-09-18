@@ -1,10 +1,9 @@
-// Renders the right diagram for a project, chosen by the `kind` prop.
-// This keeps the DATA plain (just the string 'video-rag' | 'video-intel')
-// while the bespoke markup (an <img> or a hand-drawn <svg>) lives here.
+'use client'
+
+// Client Component because it uses an onError event handler (event handlers
+// aren't allowed in Server Components). Renders the right diagram per `kind`.
 export default function ProjectDiagram({ kind }: { kind: 'video-rag' | 'video-intel' }) {
   if (kind === 'video-rag') {
-    // External image (GitHub raw). If it fails to load, hide the wrapper —
-    // the JSX version of the old inline onerror="this.parentElement...".
     return (
       <div className="mt-[22px]">
         <img
@@ -21,8 +20,6 @@ export default function ProjectDiagram({ kind }: { kind: 'video-rag' | 'video-in
     )
   }
 
-  // Hand-drawn architecture diagram (was inline SVG in the old projects.html).
-  // Styling that was in an SVG <style> block is inlined as attributes here.
   return (
     <div className="mt-[22px]">
       <svg viewBox="0 0 640 260" xmlns="http://www.w3.org/2000/svg" className="h-auto w-full" style={{ fontFamily: "'Instrument Sans', sans-serif" }}>
