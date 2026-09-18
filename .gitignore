@@ -21,3 +21,7 @@ desktop.ini
 # Environment secrets (never commit)
 .env*.local
 .env
+
+# Next.js generated agent docs
+AGENTS.md
+CLAUDE.md
