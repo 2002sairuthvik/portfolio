@@ -1,5 +1,7 @@
+'use client'
+
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useRouter } from 'next/navigation'
 
 const pages = [
   { label: 'Home', to: '/' },
@@ -9,17 +11,15 @@ const pages = [
   { label: 'Contact', to: '/contact' },
 ]
 
-// A dependency-free command palette. Built with plain React + Tailwind so it
-// works reliably on this toolchain (shadcn's Dialog library fought the stack).
+// Dependency-free command palette (same as the Vite version) — the only change
+// for Next is navigation: React Router's useNavigate → next/navigation useRouter.
 export default function CommandMenu() {
   const [open, setOpen] = useState(false)
   const [query, setQuery] = useState('')
-  const [active, setActive] = useState(0) // highlighted result (for arrow keys)
+  const [active, setActive] = useState(0)
   const inputRef = useRef<HTMLInputElement>(null)
-  const navigate = useNavigate()
+  const router = useRouter()
 
-  // GLOBAL keyboard listener: Cmd/Ctrl+K toggles, Escape closes. Attached to
-  // window in a useEffect; the returned function is the CLEANUP that removes it.
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.key.toLowerCase() === 'k' && (e.metaKey || e.ctrlKey)) {
@@ -33,14 +33,11 @@ export default function CommandMenu() {
     return () => window.removeEventListener('keydown', onKeyDown)
   }, [])
 
-  // DERIVED state: the filtered list, recomputed only when the query changes.
   const results = useMemo(
     () => pages.filter((p) => p.label.toLowerCase().includes(query.trim().toLowerCase())),
     [query],
   )
 
-  // When it opens, reset and focus the input. When the query changes, reset the
-  // highlight to the top.
   useEffect(() => {
     if (open) {
       setQuery('')
@@ -52,18 +49,16 @@ export default function CommandMenu() {
 
   const go = (to: string) => {
     setOpen(false)
-    navigate(to)
+    router.push(to)
   }
 
   if (!open) return null
 
   return (
-    // Backdrop — clicking it closes the palette.
     <div
       className="fixed inset-0 z-[100] flex items-start justify-center bg-black/40 p-4 pt-[15vh]"
       onClick={() => setOpen(false)}
     >
-      {/* Panel — stopPropagation so clicks inside don't close it. */}
       <div
         className="w-full max-w-md overflow-hidden rounded-xl border border-line bg-panel shadow-2xl"
         onClick={(e) => e.stopPropagation()}

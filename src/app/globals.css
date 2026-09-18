@@ -1,0 +1,56 @@
+@import "tailwindcss";
+
+/* Enables the `dark:` variant based on a `.dark` class on an ancestor. */
+@custom-variant dark (&:is(.dark *));
+
+/* Our palette as swappable CSS variables (light in :root, dark in .dark).
+   @theme inline registers each as a Tailwind utility (bg-bg, text-ink, ...). */
+@theme inline {
+  --color-bg: var(--brand-bg);
+  --color-panel: var(--brand-panel);
+  --color-ink: var(--brand-ink);
+  --color-muted: var(--brand-muted);
+  --color-faint: var(--brand-faint);
+  --color-line: var(--brand-line);
+  --color-accent: var(--brand-accent);
+  /* --font-instrument is provided by next/font in layout.tsx */
+  --font-sans: var(--font-instrument), ui-sans-serif, system-ui, sans-serif;
+}
+
+:root {
+  --brand-bg: #faf8f3;
+  --brand-panel: #f3f0e8;
+  --brand-ink: #1b1a17;
+  --brand-muted: #726e64;
+  --brand-faint: #a7a296;
+  --brand-line: rgb(27 26 23 / 0.13);
+  --brand-accent: #3e5941;
+}
+
+.dark {
+  --brand-bg: #16140f;
+  --brand-panel: #211d17;
+  --brand-ink: #f4f0e6;
+  --brand-muted: #a39d8f;
+  --brand-faint: #6f6a5f;
+  --brand-line: rgb(255 255 255 / 0.12);
+  --brand-accent: #a7c39a;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    background-color: var(--color-bg);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-size: 17px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+  ::selection {
+    background: var(--color-accent);
+    color: var(--color-bg);
+  }
+}

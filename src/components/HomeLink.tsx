@@ -1,12 +1,11 @@
-import { Link } from 'react-router-dom'
-import type { HomeLink as HomeLinkData } from '../data/homeLinks'
+import Link from 'next/link'
+import type { HomeLink as HomeLinkData } from '@/data/homeLinks'
 
-// Internal navigation -> <Link>, so clicking swaps pages instantly (no reload).
-// The `group` + `group-hover:` classes let the title turn accent-colored when
-// you hover anywhere on the whole card.
+// Internal navigation via next/link. No interactivity, so this stays a Server
+// Component (next/link works fine inside Server Components).
 export default function HomeLink({ number, title, description, to }: HomeLinkData) {
   return (
-    <Link to={to} className="group block border-t border-line py-[22px] last:border-b">
+    <Link href={to} className="group block border-t border-line py-[22px] last:border-b">
       <div className="text-[12.5px] text-faint">{number}</div>
       <div className="mt-[7px] text-[19px] font-semibold text-ink transition-colors group-hover:text-accent">
         {title}
