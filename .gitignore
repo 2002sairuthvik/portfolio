@@ -17,3 +17,7 @@ desktop.ini
 
 # Vercel
 .vercel/
+
+# Environment secrets (never commit)
+.env*.local
+.env
